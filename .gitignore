@@ -1,0 +1,14 @@
+.ipynb_checkpoints/
+notebooks/.ipynb_checkpoints/
+__pycache__/
+*.pyc
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+.venv/
