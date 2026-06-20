@@ -47,6 +47,30 @@ The project focuses on self-organizing maps and related neural methods:
 - SOM-based digit classification using neuron labels from majority voting,
 - MATLAB visualizations of competitive learning behavior.
 
+## Demo
+
+The images below are generated outputs from the project:
+
+### Animations
+
+![SOM animation](outputs/animations/SOM.gif)
+
+![k-nearest-neighbors animation](outputs/animations/k-nearest-neighbors.gif)
+
+### Figures
+
+![Hit map](outputs/figures/SOM_20X20_Hit_map.png)
+
+![Clustering map](outputs/figures/SOM_20X20_clustering_map.png)
+
+## Report Chapters
+
+The report is organized as follows:
+
+- Chapter 2 covers Task 1.
+- Chapter 3 covers Task 2.
+- Chapter 4 describes the MATLAB prototypes.
+- Chapter 5 draws the overall conclusions.
 
 ## Installation
 
