@@ -88,7 +88,7 @@
   \vspace{0.5cm}
   \rule{\linewidth}{1.5pt}
   \vspace{0.4cm}
-  {\large Competitive Learning, Self-Organizing Maps, and Neural Network Classification \par}
+  {\large Competitive Learning, Self-Organizing Maps, and Digit Classification \par}
   \vspace{0.4cm}
   \rule{\linewidth}{0.5pt}
   \vspace{2cm}
@@ -101,18 +101,14 @@
 
   \begin{abstract}
     \noindent
-    This report presents a comprehensive investigation of three machine learning paradigms:
-    unsupervised clustering via Self-Organizing Maps (SOMs), SOM-based digit classification,
-    and supervised survival prediction on the Titanic dataset using a single-hidden-layer
-    neural network. Two SOM architectures (4$\times$4 and 20$\times$20) are compared with
-    respect to clustering quality, neuron utilization, and classification accuracy. The neural
-    network is trained under both online (stochastic) and offline (batch) learning regimes
-    across a range of hidden-layer sizes and training epochs, and the results are evaluated
-    using accuracy, error, F1-score, cross-entropy loss, and ROC-AUC curves. In addition,
+    This report presents a comprehensive investigation of two machine learning paradigms:
+    unsupervised clustering via Self-Organizing Maps (SOMs) and SOM-based digit
+    classification. Two SOM architectures (4$\times$4 and 20$\times$20) are compared with
+    respect to clustering quality, neuron utilization, and classification accuracy. In addition,
     prototype MATLAB implementations of competitive learning and SOM are described to
     provide conceptual grounding for the algorithmic mechanisms employed. The findings
-    confirm that larger SOM architectures substantially improve representational quality, and
-    that online learning yields marginally superior predictive performance on the Titanic task.
+    confirm that larger SOM architectures substantially improve representational quality,
+    with the 20$\times$20 map achieving significantly higher classification accuracy.
   \end{abstract}
 
 \end{titlepage}
@@ -136,7 +132,7 @@ neurons that lie spatially close to the winning unit in the map lattice are also
 thereby preserving the topological structure of the input space in the two-dimensional
 projection.
 
-This project brings together three related but distinct machine learning tasks:
+This project brings together two related but distinct machine learning tasks:
 
 \begin{enumerate}
   \item \textbf{Task~1 — Unsupervised clustering:} Two SOM networks of sizes 4$\times$4
@@ -146,20 +142,15 @@ This project brings together three related but distinct machine learning tasks:
   \item \textbf{Task~2 — SOM-based classification:} The trained SOMs are post-labelled
         using majority voting and then used to classify unseen digit samples; the
         classification performance of the two architectures is contrasted.
-
-  \item \textbf{Task~3 — Titanic survival classification:} A single-hidden-layer
-        multi-layer perceptron (MLP) is trained on the Titanic passenger dataset under
-        online and offline learning strategies across a grid of hyperparameter settings,
-        and the models are evaluated with ROC-AUC analysis.
 \end{enumerate}
 
 Alongside these primary tasks, two prototype MATLAB implementations — one for
 competitive learning using a \emph{K}-nearest-neighbour adaptation rule, and one for the
 full SOM mechanism — are developed to visualise the dynamics of neuron migration and
 neighbourhood cooperation. The remainder of this report is structured as follows.
-Chapter~\ref{ch:som_cluster} covers Task~1, Chapter~\ref{ch:som_class} covers Task~2,
-Chapter~\ref{ch:titanic} covers Task~3, Chapter~\ref{ch:prototypes} describes the MATLAB
-prototypes, and Chapter~\ref{ch:conclusion} draws overall conclusions.
+Chapter~2 covers Task~1, Chapter~3 covers Task~2,
+Chapter~4 describes the MATLAB prototypes, and
+Chapter~5 draws overall conclusions.
 
 % ══════════════════════════════════════════════════════════════════════════════
 \chapter{Task 1: Clustering Using Self-Organizing Maps}
@@ -213,7 +204,7 @@ frequently mapped to it.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.75\textwidth]{SOM_4X4_clustering_map.png}
+  \includegraphics[width=0.75\textwidth]{pics/SOM_4X4_clustering_map.png}
   \caption{Cluster assignment map for the 4$\times$4 SOM. Each cell represents one
            neuron; colour and label indicate the dominant digit class.}
   \label{fig:som4x4_cluster}
@@ -233,7 +224,7 @@ the patterns that activate each neuron.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.75\textwidth]{SOM_4X4_data.png}
+  \includegraphics[width=0.75\textwidth]{pics/SOM_4X4_data.png}
   \caption{Representative samples mapped to each neuron of the 4$\times$4 SOM. Images
            are arranged to mirror the lattice layout.}
   \label{fig:som4x4_data}
@@ -249,7 +240,7 @@ multiple-class occupation observed in Figure~\ref{fig:som4x4_cluster}.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.65\textwidth]{SOM_4X4_Hit_map.png}
+  \includegraphics[width=0.65\textwidth]{pics/SOM_4X4_Hit_map.png}
   \caption{Hit map showing the number of training samples assigned to each neuron of the
            4$\times$4 SOM. Warmer colours indicate higher activity.}
   \label{fig:som4x4_hitmap}
@@ -267,7 +258,7 @@ scale.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.85\textwidth]{SOM_20X20_clustering_map.png}
+  \includegraphics[width=0.85\textwidth]{pics/SOM_20X20_clustering_map.png}
   \caption{Cluster assignment map for the 20$\times$20 SOM. Contiguous regions for each
            digit class demonstrate high-quality topological organisation.}
   \label{fig:som20x20_cluster}
@@ -282,7 +273,7 @@ slant, and size — reflecting a smooth gradient of digit appearance across the 
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.85\textwidth]{SOM_20X20_data.png}
+  \includegraphics[width=0.85\textwidth]{pics/SOM_20X20_data.png}
   \caption{Representative samples mapped to neurons of the 20$\times$20 SOM, arranged
            in lattice order. Smooth transitions between adjacent neurons are visible.}
   \label{fig:som20x20_data}
@@ -299,7 +290,7 @@ leading to lower quantisation error.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.75\textwidth]{SOM_20X20_Hit_map.png}
+  \includegraphics[width=0.75\textwidth]{pics/SOM_20X20_Hit_map.png}
   \caption{Hit map for the 20$\times$20 SOM. Dark cells indicate dead neurons; active
            neurons show a more balanced load compared with the 4$\times$4 map.}
   \label{fig:som20x20_hitmap}
@@ -354,7 +345,7 @@ to systematic misclassification of digits whose class is a minority within a sha
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.65\textwidth]{SOM_4X4_Neurons_label.png}
+  \includegraphics[width=0.65\textwidth]{pics/SOM_4X4_Neurons_label.png}
   \caption{Class labels assigned to each neuron of the 4$\times$4 SOM by majority voting.
            Several neurons carry the same label, reflecting class overlap.}
   \label{fig:som4x4_labels}
@@ -369,7 +360,7 @@ well-separated class representations.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.85\textwidth]{SOM_20X20_Neurons_label.png}
+  \includegraphics[width=0.85\textwidth]{pics/SOM_20X20_Neurons_label.png}
   \caption{Class labels assigned to each neuron of the 20$\times$20 SOM. Contiguous
            class regions reflect high-quality topological organisation.}
   \label{fig:som20x20_labels}
@@ -407,228 +398,7 @@ purely proximity-based in the original input space. Potential improvements inclu
   \item Increasing map resolution adaptively using growing-SOM variants.
 \end{itemize}
 
-% ══════════════════════════════════════════════════════════════════════════════
-\chapter{Task 3: Titanic Survival Classification}
-\label{ch:titanic}
-% ══════════════════════════════════════════════════════════════════════════════
 
-\section{Dataset Overview}
-
-The Titanic dataset is a standard binary classification benchmark describing 891 passengers
-aboard the RMS Titanic. The prediction target is survival (1 = survived, 0 = did not
-survive). The raw dataset contains missing values, categorical variables, and features of
-widely differing scales, all of which must be addressed before training a neural network.
-
-\section{Dataset Preprocessing}
-
-\subsection{Age Imputation}
-
-The \texttt{Age} feature is missing for a significant fraction of passengers. As shown in
-Figure~\ref{fig:age_hist}, the age distribution is right-skewed, with the majority of
-passengers concentrated between 20 and 40 years of age. Because the mean is sensitive to
-outliers in skewed distributions, the \emph{median} age was used for imputation to reduce
-bias.
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.60\textwidth]{Histogram_Ages.png}
-  \caption{Histogram of passenger ages in the Titanic dataset. The right-skewed
-           distribution motivates the use of median imputation for missing values.}
-  \label{fig:age_hist}
-\end{figure}
-
-\subsection{Feature Engineering and Normalisation}
-
-Categorical features (e.g.\ \texttt{Sex}, \texttt{Embarked}) were encoded as numerical
-values using label or one-hot encoding as appropriate. Irrelevant or high-cardinality
-features (e.g.\ \texttt{Name}, \texttt{Ticket}, \texttt{Cabin}) were dropped to avoid
-noise. All remaining input variables were normalised to zero mean and unit variance
-(z-score normalisation) prior to training.
-
-\section{Neural Network Architecture}
-
-A single-hidden-layer MLP with a sigmoid activation function was used. Let $n_h$ denote
-the number of hidden neurons. The forward pass is:
-
-\begin{align}
-  \mathbf{a}^{(1)} &= \sigma\!\bigl(W^{(1)}\mathbf{x} + \mathbf{b}^{(1)}\bigr), \\
-  \hat{y}          &= \sigma\!\bigl(W^{(2)}\mathbf{a}^{(1)} + b^{(2)}\bigr),
-\end{align}
-
-where $\sigma(z) = 1/(1+e^{-z})$ is the sigmoid function. Binary cross-entropy was used
-as the training objective:
-
-\begin{equation}
-  \mathcal{L} = -\frac{1}{N}\sum_{i=1}^N
-  \Bigl[y_i \log\hat{y}_i + (1-y_i)\log(1-\hat{y}_i)\Bigr].
-\end{equation}
-
-\section{Hyperparameter Grid and Training Strategies}
-
-Two training strategies were evaluated over a grid of hidden-layer sizes
-($n_h \in \{1,5,10,20,30,40\}$) and training durations (up to 2000 epochs):
-
-\begin{description}
-  \item[Offline (batch) learning:] All training samples are processed before a single
-       weight update is applied. The gradient is exact but noisy batches are absent,
-       leading to smoother convergence at the cost of higher memory usage.
-  \item[Online (stochastic) learning:] Weights are updated after each individual sample.
-       This introduces stochastic noise that can help escape shallow local minima and
-       often leads to faster initial convergence.
-\end{description}
-
-\section{Hidden Layer Selection Results}
-
-\subsection{Offline Training}
-
-Figures~\ref{fig:off_acc}–\ref{fig:off_loss} show the accuracy, error, F1-score, and
-loss surfaces as functions of epoch and hidden-layer size for offline training.
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.90\textwidth]{Offline_Train_Test_Accuracy_surface.png}
-  \caption{Training and testing accuracy surfaces for offline (batch) learning as a
-           function of epoch count and number of hidden neurons.}
-  \label{fig:off_acc}
-\end{figure}
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.90\textwidth]{Offline_Train_Test_Error_surface.png}
-  \caption{Training and testing error (number of misclassifications) surfaces for
-           offline learning.}
-  \label{fig:off_err}
-\end{figure}
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.90\textwidth]{Offline_Train_Test_F1_Score_surface.png}
-  \caption{Training and testing F1-score surfaces for offline learning.}
-  \label{fig:off_f1}
-\end{figure}
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.90\textwidth]{Offline_Train_Test_Loss_surface.png}
-  \caption{Training and testing cross-entropy loss surfaces for offline learning.}
-  \label{fig:off_loss}
-\end{figure}
-
-The offline surfaces reveal that both training and testing performance improve rapidly
-during the first few hundred epochs before reaching a plateau. Networks with very few
-hidden neurons ($n_h = 1$) underfit the data; performance improves monotonically up to
-approximately $n_h = 20$, beyond which gains are marginal on the test set, while training
-accuracy continues to increase — a clear indication of mild over-fitting at large $n_h$.
-
-\subsection{Online Training}
-
-The corresponding surfaces for online (stochastic) training are shown in
-Figures~\ref{fig:on_acc}–\ref{fig:on_loss}.
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.90\textwidth]{online_Train_Test_Accuracy_surface.png}
-  \caption{Training and testing accuracy surfaces for online (stochastic) learning.}
-  \label{fig:on_acc}
-\end{figure}
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.90\textwidth]{online_Train_Test_Error_surface.png}
-  \caption{Training and testing error surfaces for online learning.}
-  \label{fig:on_err}
-\end{figure}
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.90\textwidth]{online_Train_Test_F1_Score_surface.png}
-  \caption{Training and testing F1-score surfaces for online learning.}
-  \label{fig:on_f1}
-\end{figure}
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.90\textwidth]{online_Train_Test_Loss_surface.png}
-  \caption{Training and testing cross-entropy loss surfaces for online learning.}
-  \label{fig:on_loss}
-\end{figure}
-
-Online learning exhibits faster initial convergence, reflecting the high gradient-update
-frequency. The test surfaces are smoother than their offline counterparts and show less
-evidence of over-fitting at large $n_h$, consistent with the regularising effect of
-gradient noise.
-
-\section{Training Dynamics}
-
-\subsection{Offline Training Convergence}
-
-Figure~\ref{fig:off_train} plots the training error and cross-entropy loss per epoch for
-the best-performing offline configuration. The loss decreases sharply during the first
-$\sim$300 epochs and then flattens, indicating that the optimiser has reached a region
-near a local minimum. Residual oscillation in the error curve reflects the discrete nature
-of the classification error metric.
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.85\textwidth]{Offline_Training_Error_Loss.png}
-  \caption{Epoch-by-epoch training error (top) and cross-entropy loss (bottom) for the
-           best-performing offline configuration.}
-  \label{fig:off_train}
-\end{figure}
-
-\subsection{Online Training Convergence}
-
-Figure~\ref{fig:on_train} shows the corresponding curves for online learning. The
-convergence profile is noticeably smoother, and the final training error is lower than
-for the offline variant, which reflects the higher effective number of weight updates per
-epoch in stochastic mode.
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.85\textwidth]{Online_Training_Error_Loss.png}
-  \caption{Epoch-by-epoch training error (top) and cross-entropy loss (bottom) for the
-           best-performing online configuration.}
-  \label{fig:on_train}
-\end{figure}
-
-\section{ROC Analysis}
-
-The Receiver Operating Characteristic (ROC) curve and the Area Under the Curve (AUC)
-provide a threshold-independent assessment of classifier discriminative ability.
-Figure~\ref{fig:roc} compares the ROC curves for the best offline and online models.
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.80\textwidth]{ROC_AUC_figure.png}
-  \caption{ROC curves for the offline (AUC\,=\,0.7747) and online (AUC\,=\,0.7605)
-           models on the Titanic test set. The dashed diagonal represents a random
-           classifier (AUC\,=\,0.5).}
-  \label{fig:roc}
-\end{figure}
-
-Both models achieve AUC values well above the random baseline, confirming the network's
-ability to discriminate survivors from non-survivors. The offline model achieves a
-marginally higher AUC (0.7747 vs.\ 0.7605), suggesting that the smoother gradient
-estimates provided by batch updates slightly improve the calibration of the output
-probabilities, even though online learning achieves a higher raw classification accuracy.
-This discrepancy is expected: accuracy is a threshold-sensitive metric, while AUC
-integrates performance across all thresholds.
-
-\section{Discussion}
-
-The neural network classifier demonstrates solid performance on the Titanic benchmark.
-Key observations are:
-
-\begin{itemize}
-  \item Both learning strategies converge reliably within 2000 epochs for $n_h \geq 5$.
-  \item Online learning converges faster and tends toward slightly higher accuracy, making
-        it preferable when training time is a constraint.
-  \item Offline learning yields better-calibrated probability outputs (higher AUC), which
-        is advantageous in applications where the decision threshold must be tuned
-        post-training.
-  \item Hidden-layer size around $n_h = 20$ offers the best generalisation trade-off;
-        larger networks improve training accuracy without proportional test improvement.
-\end{itemize}
 
 % ══════════════════════════════════════════════════════════════════════════════
 \chapter{Prototype Implementations}
@@ -674,7 +444,7 @@ toward the data points (stars) over 10\,000 iterations.
 \begin{figure}[H]
   \centering
   % Replace with your actual frame export if needed
-  \fbox{\includegraphics[width=0.65\textwidth]{k-nearest-neighbors.jpg}}
+  \fbox{\includegraphics[width=0.65\textwidth]{pics/k-nearest-neighbors.jpg}}
   \caption{Still frame from the competitive learning animation
            (\texttt{k-nearest-neighbors.gif}). Circles represent neuron weight vectors
            migrating toward the data distribution (stars) under the
@@ -716,7 +486,7 @@ make the convergence path visible.
 
 \begin{figure}[H]
   \centering
-  \fbox{\includegraphics[width=0.65\textwidth]{k-nearest-neighbors_1.jpg}}
+  \fbox{\includegraphics[width=0.65\textwidth]{pics/k-nearest-neighbors_1.jpg}}
   \caption{Still frame from the SOM prototype animation
            (\texttt{k-nearest-neighbors\_1.jpg}). The five neurons (blue circles)
            migrate toward the four Gaussian clusters (red stars); trajectory lines
@@ -761,15 +531,6 @@ specialise in a single digit class, producing more accurate and consistent label
 These findings motivate the use of larger SOM architectures — or post-training refinement
 methods such as LVQ — when classification accuracy is the primary objective.
 
-\textbf{Titanic Classification (Task~3):} The single-hidden-layer MLP proves effective
-for binary survival prediction, achieving AUC values of approximately 0.77 (offline) and
-0.76 (online) on the test set. Online learning converges faster and achieves slightly
-higher classification accuracy, while offline (batch) learning provides marginally better
-probability calibration as measured by AUC. A hidden-layer size of around 20 neurons
-offers the best generalisation across both training strategies. These results confirm that
-even a shallow neural network, properly trained and regularised, can extract meaningful
-predictive structure from a mixed-type tabular dataset.
-
 \textbf{Prototypes:} The MATLAB competitive learning and SOM prototypes successfully
 illustrate the core algorithmic mechanisms — neighbourhood cooperation, learning-rate
 decay, and progressive neighbourhood shrinkage — in an intuitive 2-D visualisation. The
@@ -778,21 +539,17 @@ migrate and converge, offering pedagogical value beyond what static figures can 
 
 \textbf{Future Directions:} Several extensions could further improve the results reported
 here. For the SOM tasks, growing or adaptive map variants could automatically tune neuron
-count to data complexity. For the Titanic task, regularisation techniques (dropout, weight
-decay), deeper architectures, or ensemble methods could push performance above the
-single-hidden-layer ceiling. Feature engineering — such as extracting family group
-information or combining \texttt{Pclass} with \texttt{Fare} — could also yield
-improvements. Finally, integrating the SOM representation with a downstream neural network
-(a hybrid unsupervised–supervised pipeline) is a natural direction for combining the
-topological insights of Task~2 with the discriminative power of Task~3.
+count to data complexity. Learning Vector Quantisation (LVQ) could be applied as a
+post-training refinement to sharpen class boundaries and improve classification accuracy
+further. Finally, integrating the SOM representation with a downstream supervised
+classifier is a natural direction for extending the topological insights of Task~2.
 
 \vspace{1em}
 \noindent
 In summary, the experiments reported in this project provide concrete empirical evidence
 for the well-known theoretical advantages of increased representational capacity in
-unsupervised learning, and demonstrate the practical competitiveness of shallow neural
-networks for structured tabular classification when combined with careful preprocessing
-and hyperparameter selection.
+unsupervised learning, demonstrating how map resolution and neuron count directly
+determine clustering quality and classification accuracy in SOM-based systems.
 
 % ══════════════════════════════════════════════════════════════════════════════
 %  REFERENCES

@@ -20,8 +20,6 @@ It includes:
 │       ├── Report.tex
 │       ├── Report.pdf
 │       └── generated figures used by the report
-├── notebooks/
-│   └── Proj1.ipynb
 ├── outputs/
 │   ├── animations/
 │   │   ├── SOM.gif
@@ -47,8 +45,18 @@ The project focuses on self-organizing maps and related neural methods:
 
 - SOM clustering on the handwritten digits dataset,
 - SOM-based digit classification using neuron labels from majority voting,
-- a from-scratch single-hidden-layer classifier for Titanic survival prediction,
 - MATLAB visualizations of competitive learning behavior.
+
+
+## Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/malisaber/Self-Organizing-Map.git
+cd your-repo
+```
+
 
 ## Requirements
 
@@ -78,15 +86,6 @@ or directly:
 python src/python/som_project.py
 ```
 
-### Notebook
-
-Open the notebook for interactive exploration:
-
-```bash
-make notebook
-```
-
-The notebook expects to be launched from the repository root so it can read `data/titanic.csv`.
 
 ### MATLAB demos
 
